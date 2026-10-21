@@ -1,18 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="activi3.css">
 </head>
-<body>
-  <!-- FORMULARIO REALIZAR COTIZACIÓN -->
-  <!-- compra una PC / portatil -->
-  <!-- Existan campos obligatorios / no obligatorios -->
-  <!-- Generar un cuadro de diálogo con la confirmación -->
-  <!-- Aplicar estilos CSS -->
 
-  
+<body>
+
+  <form id="formulario" autocomplete="off" novalidate>
+
+    <div class="field">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" minlength="3" required>
+      <div class="error-msg" id="error-nombre"></div>
+    </div>
+
+    <div class="field">
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" required>
+      <div class="error-msg" id="error-email"></div>
+    </div>
+
+    <div class="field">
+      <label for="telefono">Teléfono <span class="opt">(opcional)</span></label>
+      <input type="tel" id="telefono">
+    </div>
+
+    <div class="field">
+      <label for="ciudad">Ciudad <span class="opt">(opcional)</span></label>
+      <input type="text" id="ciudad">
+    </div>
+
+    <div class="field">
+      <label for="tipo">Tipo de equipo</label>
+      <select id="tipo" required>
+        <option value="">Seleccione...</option>
+        <option>PC de escritorio</option>
+        <option>Portátil</option>
+      </select>
+      <div class="error-msg" id="error-tipo"></div>
+    </div>
+
+    <div class="field">
+      <label for="uso">Uso principal</label>
+      <select id="uso" required>
+        <option value="">Seleccione...</option>
+        <option>Estudio / oficina</option>
+        <option>Diseño y edición</option>
+        <option>Juegos</option>
+        <option>Programación</option>
+      </select>
+      <div class="error-msg" id="error-uso"></div>
+    </div>
+
+    <div class="field">
+      <label for="marca">Marca preferida <span class="opt">(opcional)</span></label>
+      <select id="marca">
+        <option value="">Sin preferencia</option>
+        <option>HP</option>
+        <option>Lenovo</option>
+        <option>Dell</option>
+        <option>Asus</option>
+        <option>Acer</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="ram">Memoria RAM <span class="opt">(opcional)</span></label>
+      <select id="ram">
+        <option value="">Sin preferencia</option>
+        <option>8 GB</option>
+        <option>16 GB</option>
+        <option>32 GB</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="cantidad">Cantidad</label>
+      <input type="number" id="cantidad" min="1" max="100" value="1" required>
+      <div class="error-msg" id="error-cantidad"></div>
+    </div>
+
+    <div class="field">
+      <label for="comentarios">Comentarios <span class="opt">(opcional)</span></label>
+      <textarea id="comentarios" rows="3"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="reset" class="btn-secondary">Reiniciar</button>
+      <button type="submit" class="btn-primary">Enviar</button>
+    </div>
+  </form>
+  </main>
+
+  <dialog id="confirmacion">
+    <h2>¡Cotización enviada!</h2>
+    <p>Recibimos tu solicitud. Te responderemos al correo indicado.</p>
+    <dl id="resumen"></dl>
+    <div class="actions">
+      <button type="button" class="btn-primary" id="cerrar">Aceptar</button>
+    </div>
+  </dialog>
+
+  <script>
+    formulario.addEventListener("submit", function (event) {
+      event.preventDefault()
+
+      const nombre = document.getElementById("nombre").value
+      const email = document.getElementById("email").value
+      const telefono = document.getElementById("telefono").value
+      const ciudad = document.getElementById("ciudad").value
+      const tipo = document.getElementById("tipo").value
+      const uso = document.getElementById("uso").value
+      const marca = document.getElementById("marca").value
+      const ram = document.getElementById("ram").value
+      const cantidad = document.getElementById("cantidad").value
+      const comentarios = document.getElementById("comentarios").value
+
+      let texto = ""
+      texto += "<dt>Nombre</dt><dd>" + nombre + "</dd>"
+      texto += "<dt>Correo</dt><dd>" + email + "</dd>"
+      texto += "<dt>Equipo</dt><dd>" + tipo + "</dd>"
+      texto += "<dt>Uso</dt><dd>" + uso + "</dd>"
+      texto += "<dt>Cantidad</dt><dd>" + cantidad + "</dd>"
+
+      if (telefono != "") {
+        texto += "<dt>Teléfono</dt><dd>" + telefono + "</dd>"
+      }
+      if (ciudad != "") {
+        texto += "<dt>Ciudad</dt><dd>" + ciudad + "</dd>"
+      }
+      if (marca != "") {
+        texto += "<dt>Marca</dt><dd>" + marca + "</dd>"
+      }
+      if (ram != "") {
+        texto += "<dt>RAM</dt><dd>" + ram + "</dd>"
+      }
+      if (comentarios != "") {
+        texto += "<dt>Comentarios</dt><dd>" + comentarios + "</dd>"
+      }
+
+      resumen.innerHTML = texto
+      dialogo.showModal()
+    })
+  </script>
 
 </body>
+
 </html>
